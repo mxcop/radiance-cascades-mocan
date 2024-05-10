@@ -1,17 +1,22 @@
 import { Circle, Grid, Icon, Layout, Line, PossibleCanvasStyle, Rect, Txt, View2D, makeScene2D } from '@motion-canvas/2d';
-import { SignalValue, Vector2, all, cos, createRef, createSignal, loop, sin, waitFor } from '@motion-canvas/core';
+import { SignalValue, Vector2, all, beginSlide, cos, createRef, createSignal, loop, sin, waitFor } from '@motion-canvas/core';
 import { Cascade, drawCascade, getCascade } from '../utils/cascade';
 import { drawProbe } from '../utils/probe';
 import { Probe } from '../comps/probe';
+import openingSlide from './slides/opening-slide';
 
-const Object = (config: {children: string}) => (
-  <Rect fill={'#eee'} padding={[8, 16]} fontFamily={'JetBrains Mono'} layout>
-      <Icon height={'100%'} color={'#111'} icon={'material-symbols:device-hub-rounded'} />
-      <Txt>{config.children}</Txt>
-  </Rect>
-);
+// const Object = (config: {children: string}) => (
+//   <Rect fill={'#eee'} padding={[8, 16]} fontFamily={'JetBrains Mono'} layout>
+//       <Icon height={'100%'} color={'#111'} icon={'material-symbols:device-hub-rounded'} />
+//       <Txt>{config.children}</Txt>
+//   </Rect>
+// );
 
 export default makeScene2D(function* (view) {
+  view.fill('#141414');
+
+  yield* openingSlide(view);
+  yield* beginSlide('Next Slide');
 
   const colors = ['#57c4fd', '#f85789', '#85e04c', '#222'];
   // for (let i = 3; i >= 0; i--) {
@@ -23,7 +28,12 @@ export default makeScene2D(function* (view) {
 
   // const directions = createSignal<number>(4);
   const pre_probe = createRef<Probe>();
-  view.add(<Probe ref={pre_probe} color={'#57c4fd'} interval={new Vector2(0, 64)} directions={4} lineWidth={16} />);
+  view.add(
+    <Rect fill={'#242424'} x={256} width={'30%'} height={'50%'} radius={16} padding={48} direction={'column'} layout>
+      <Txt marginBottom={48} fontFamily={'JetBrains Mono'} fontWeight={800} fontSize={40} fill={'#9a9a9a'}>CASCADE-0 PROBE</Txt>
+      <Probe ref={pre_probe} showDot={true} fill={'#141414'} radius={12} color={'#57c4fd'} interval={new Vector2(0, 128)} directions={4} lineWidth={12} />
+    </Rect>
+  );
 
   /* Update probe direction count as animation */
   yield* loop(12, (i) => {

@@ -4,14 +4,18 @@ import { ColorSignal, PossibleColor, Signal, SignalValue, SimpleSignal, Vector2 
 const PI: number = 3.1415926535897932384626433832795;
 const TAU: number = (PI * 2.0);
 
-export interface ProbeProps extends NodeProps {
+export interface ProbeProps extends RectProps {
+    showDot?: SignalValue<boolean>;
     color?: SignalValue<PossibleColor>;
     lineWidth?: SignalValue<number>;
     interval: SignalValue<Vector2>;
     directions: SignalValue<number>;
 }
 
-export class Probe extends Node {
+export class Probe extends Rect {
+    @initial(false)
+    @signal()
+    public declare readonly showDot: SimpleSignal<boolean, this>;
     @initial('#fff')
     @colorSignal()
     public declare readonly color: ColorSignal<this>;
@@ -24,7 +28,7 @@ export class Probe extends Node {
     public declare readonly directions: SimpleSignal<number, this>;
 
     public constructor(props?: ProbeProps) {
-        super({ ...props });
+        super({ ...props, width: '100%', height: '100%' });
 
         this.set_directions(this.directions());
     }
@@ -44,7 +48,13 @@ export class Probe extends Node {
                     [
                         [ray_dir.x * interval.x, ray_dir.y * interval.x],
                         [ray_dir.x * interval.y, ray_dir.y * interval.y],
-                    ]} />
+                    ]} layout={false} />
+            );
+        }
+
+        if (this.showDot()) {
+            this.add(
+                <Circle fill={'#fff'} stroke={() => this.fill()} lineWidth={() => this.lineWidth()} size={() => this.lineWidth() * 3} layout={false} />
             );
         }
     }
