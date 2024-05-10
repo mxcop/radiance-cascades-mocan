@@ -13,8 +13,8 @@
     "audioOffset": 0
   },
   "preview": {
-    "fps": 30,
-    "resolutionScale": 2
+    "fps": 60,
+    "resolutionScale": 1
   },
   "rendering": {
     "fps": 60,

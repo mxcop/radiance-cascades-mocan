@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import fragment from '../shaders/cascade.fragment.glsl?raw';
 import vertex from '../shaders/cascade.vertex.glsl?raw';
+import { createComputed, createSignal, useScene } from '@motion-canvas/core';
 
 const layerMaterial = new THREE.ShaderMaterial({
     uniforms: {
@@ -30,11 +31,19 @@ const orbit = new THREE.Group();
 orbit.add(camera);
 threeScene.add(orbit);
 
+const probeSize = createSignal<number>(4);
+
+const update = createComputed(() => {
+    const ps: number = probeSize();
+    mesh.material.uniforms.probeSize.value = new THREE.Vector2(ps, ps);
+});
+
 async function setup() {
+    useScene().lifecycleEvents.onBeginRender.subscribe(update);
     orbit.position.set(0, 0, 0);
     orbit.rotation.set(0, 0, 0);
     camera.rotation.set(0, 0, 0);
     camera.position.set(0, 0, 0);
 }
 
-export { threeScene, camera, layer, setup, orbit };
+export { threeScene, camera, layer, setup, orbit, probeSize };

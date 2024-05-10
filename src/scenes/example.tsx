@@ -42,6 +42,8 @@ export default makeScene2D(function* (view) {
       />
     </Layout>
   );
+  yield* layers.probeSize(4, 1);
+  yield* layers.probeSize(16, 1);
   yield* waitFor(1);
 
   // const directions = createSignal<number>(4);
