@@ -2,8 +2,10 @@ import { Circle, Grid, Icon, Layout, Line, PossibleCanvasStyle, Rect, Txt, View2
 import { SignalValue, Vector2, all, beginSlide, cos, createRef, createSignal, loop, sin, waitFor } from '@motion-canvas/core';
 import { Cascade, drawCascade, getCascade } from '../utils/cascade';
 import { drawProbe } from '../utils/probe';
-import { Probe } from '../comps/probe';
+import { Probe } from '../components/probe';
 import openingSlide from './slides/opening-slide';
+import { Three } from '../components/three';
+import * as layers from '../three/cascade';
 
 // const Object = (config: {children: string}) => (
 //   <Rect fill={'#eee'} padding={[8, 16]} fontFamily={'JetBrains Mono'} layout>
@@ -16,7 +18,8 @@ export default makeScene2D(function* (view) {
   view.fill('#141414');
 
   yield* openingSlide(view);
-  yield* beginSlide('Next Slide');
+  yield* waitFor(1);
+  // yield* beginSlide('Next Slide');
 
   const colors = ['#57c4fd', '#f85789', '#85e04c', '#222'];
   // for (let i = 3; i >= 0; i--) {
@@ -26,20 +29,35 @@ export default makeScene2D(function* (view) {
   //   drawProbe(view, new Vector2((1 << (i - 1)) * 16, (1 << (i - 1)) * 16), new Vector2((1 << i) * 16, (1 << i) * 16), cascade0, cascade1, color);
   // }
 
-  // const directions = createSignal<number>(4);
-  const pre_probe = createRef<Probe>();
-  view.add(
-    <Rect fill={'#242424'} x={256} width={'30%'} height={'50%'} radius={16} padding={48} direction={'column'} layout>
-      <Txt marginBottom={48} fontFamily={'JetBrains Mono'} fontWeight={800} fontSize={40} fill={'#9a9a9a'}>CASCADE-0 PROBE</Txt>
-      <Probe ref={pre_probe} showDot={true} fill={'#141414'} radius={12} color={'#57c4fd'} interval={new Vector2(0, 128)} directions={4} lineWidth={12} />
-    </Rect>
+  yield layers.setup();
+  yield view.add(
+    <Layout width={512} height={512} layout>
+    <Three
+        width={512}
+        height={512}
+        resw={64}
+        resh={64}
+        camera={layers.camera}
+        scene={layers.threeScene}
+      />
+    </Layout>
   );
+  yield* waitFor(1);
+
+  // const directions = createSignal<number>(4);
+  // const pre_probe = createRef<Probe>();
+  // view.add(
+  //   <Rect fill={'#242424'} x={256} width={'30%'} height={'50%'} radius={16} padding={48} direction={'column'} layout>
+  //     <Txt marginBottom={48} fontFamily={'JetBrains Mono'} fontWeight={800} fontSize={40} fill={'#9a9a9a'}>CASCADE-0 PROBE</Txt>
+  //     <Probe ref={pre_probe} showDot={true} fill={'#141414'} radius={12} color={'#57c4fd'} interval={new Vector2(0, 128)} directions={4} lineWidth={12} />
+  //   </Rect>
+  // );
 
   /* Update probe direction count as animation */
-  yield* loop(12, (i) => {
-    pre_probe().set_directions(4 + i);
-    return waitFor(0.2);
-  });
+  // yield* loop(12, (i) => {
+  //   pre_probe().set_directions(4 + i);
+  //   return waitFor(0.2);
+  // });
 
   //yield* pre_probe().lineWidth(4, 1).to(16, 1).wait(1);
   // yield* waitFor(1);
@@ -48,10 +66,10 @@ export default makeScene2D(function* (view) {
   // pre_probe().set_directions(16);
   // yield* waitFor(1);
 
-  const cascade0: Cascade = getCascade(4, 16, 1, 0);
-  const cascade1: Cascade = getCascade(4, 16, 1, 1);
-  const cascade2: Cascade = getCascade(4, 16, 1, 2);
-  const bgs = 4;
+  // const cascade0: Cascade = getCascade(4, 16, 1, 0);
+  // const cascade1: Cascade = getCascade(4, 16, 1, 1);
+  // const cascade2: Cascade = getCascade(4, 16, 1, 2);
+  // const bgs = 4;
   // drawCascade(view, new Vector2(-384 * bgs, -384 * bgs), new Vector2(768 * bgs, 768 * bgs), new Vector2(4 * bgs, 4 * bgs), cascade0, 'rgb(30, 30, 30)');
   // drawCascade(view, new Vector2(-384 * bgs, -384 * bgs), new Vector2(768 * bgs, 768 * bgs), new Vector2(2 * bgs, 2 * bgs), cascade1, 'rgb(35, 35, 35)');
   // drawCascade(view, new Vector2(-384 * bgs, -384 * bgs), new Vector2(768 * bgs, 768 * bgs), new Vector2(1 * bgs, 1 * bgs), cascade2, 'rgb(40, 40, 40)');

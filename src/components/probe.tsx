@@ -1,5 +1,5 @@
-import { Circle, Line, Node, NodeProps, Rect, RectProps, colorSignal, initial, signal } from "@motion-canvas/2d";
-import { ColorSignal, PossibleColor, Signal, SignalValue, SimpleSignal, Vector2 } from "@motion-canvas/core";
+import { Circle, Line, Rect, RectProps, colorSignal, initial, signal } from "@motion-canvas/2d";
+import { ColorSignal, PossibleColor, SignalValue, SimpleSignal, Vector2 } from "@motion-canvas/core";
 
 const PI: number = 3.1415926535897932384626433832795;
 const TAU: number = (PI * 2.0);
