@@ -1,5 +1,5 @@
 import { Circle, Grid, Icon, Layout, Line, PossibleCanvasStyle, Rect, Txt, View2D, makeScene2D } from '@motion-canvas/2d';
-import { SignalValue, Vector2, all, beginSlide, cos, createRef, createSignal, loop, sin, waitFor } from '@motion-canvas/core';
+import { SignalValue, Vector2, all, beginSlide, cos, createRef, createSignal, easeInOutCubic, loop, map, sin, tween, waitFor } from '@motion-canvas/core';
 import { Cascade, drawCascade, getCascade } from '../utils/cascade';
 import { drawProbe } from '../utils/probe';
 import { Probe } from '../components/probe';
@@ -31,7 +31,8 @@ export default makeScene2D(function* (view) {
 
   yield layers.setup();
   yield view.add(
-    <Layout width={512} height={512} layout>
+    <Rect width={512} height={512} y={256}
+      radius={16} clip={true} layout>
     <Three
         width={512}
         height={512}
@@ -40,10 +41,19 @@ export default makeScene2D(function* (view) {
         camera={layers.camera}
         scene={layers.threeScene}
       />
-    </Layout>
+    </Rect>
   );
   // yield* layers.probeSize(4, 1);
   // yield* layers.probeSize(16, 1);
+  yield *
+  tween(5, value => {
+    layers.dirCount(map(360, 4, easeInOutCubic(value)));
+  });
+  yield* waitFor(1);
+  yield *
+  tween(5, value => {
+    layers.dirCount(map(4, 360, easeInOutCubic(value)));
+  });
   yield* waitFor(1);
 
   // const directions = createSignal<number>(4);

@@ -5,6 +5,7 @@ import { createComputed, createSignal, useScene } from '@motion-canvas/core';
 
 const layerMaterial = new THREE.ShaderMaterial({
     uniforms: {
+        dir_count: {value: 360},
         size: {value: new THREE.Vector2(64, 64)},
     },
     vertexShader: vertex,
@@ -19,6 +20,7 @@ const plane = new THREE.PlaneGeometry();
 let layer: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>;
 const material = layerMaterial.clone();
 const mesh = new THREE.Mesh(plane, material);
+mesh.material.uniforms.dir_count.value = 360;
 mesh.material.uniforms.size.value = new THREE.Vector2(64, 64);
 mesh.renderOrder = 0;
 layer = mesh;
@@ -29,11 +31,19 @@ const orbit = new THREE.Group();
 orbit.add(camera);
 threeScene.add(orbit);
 
+const dirCount = createSignal<number>(360);
+
+const update = createComputed(() => {
+    const dc: number = dirCount();
+    mesh.material.uniforms.dir_count.value = dc;
+});
+
 async function setup() {
+    useScene().lifecycleEvents.onBeginRender.subscribe(update);
     orbit.position.set(0, 0, 0);
     orbit.rotation.set(0, 0, 0);
     camera.rotation.set(0, 0, 0);
     camera.position.set(0, 0, 0);
 }
 
-export { threeScene, camera, layer, setup, orbit };
+export { threeScene, camera, layer, setup, orbit, dirCount };

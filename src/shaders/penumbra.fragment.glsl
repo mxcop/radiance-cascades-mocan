@@ -1,3 +1,4 @@
+uniform int dir_count;
 uniform vec2 size;
 
 in vec2 tuv;
@@ -5,7 +6,7 @@ in vec2 tuv;
 const float PI = 3.14159265;
 const float TAU = 2.0 * PI;
 
-const int NUM_SAMPLES = 360;
+// const int NUM_SAMPLES = 360;
 
 const vec2 LIGHT_POS = vec2(16.0, 32.0);
 const float LIGHT_RADIUS = 12.0;
@@ -19,9 +20,9 @@ void main() {
     
     /* Evaluate radiance */
     float radiance = 0.0;
-    for(int i = 0; i < NUM_SAMPLES; i++) {
+    for(int i = 0; i < dir_count; i++) {
         /* Ray direction */
-        float angle = TAU * (float(i) / float(NUM_SAMPLES));
+        float angle = TAU * ((float(i) + 0.5) / float(dir_count));
         vec2 rd = vec2(cos(angle), sin(angle));
 
         float light_scalar_proj = dot(LIGHT_POS - ro, rd);
@@ -48,7 +49,7 @@ void main() {
 
         radiance += contribution;
     }
-    radiance /= float(NUM_SAMPLES);
+    radiance /= float(dir_count);
 
     vec3 color = vec3(1.0);
     
