@@ -5,7 +5,7 @@ import { drawProbe } from '../utils/probe';
 import { Probe } from '../components/probe';
 import openingSlide from './slides/opening-slide';
 import { Three } from '../components/three';
-import * as layers from '../three/cascade';
+import * as layers from '../three/penumbra';
 
 // const Object = (config: {children: string}) => (
 //   <Rect fill={'#eee'} padding={[8, 16]} fontFamily={'JetBrains Mono'} layout>
@@ -42,8 +42,8 @@ export default makeScene2D(function* (view) {
       />
     </Layout>
   );
-  yield* layers.probeSize(4, 1);
-  yield* layers.probeSize(16, 1);
+  // yield* layers.probeSize(4, 1);
+  // yield* layers.probeSize(16, 1);
   yield* waitFor(1);
 
   // const directions = createSignal<number>(4);
