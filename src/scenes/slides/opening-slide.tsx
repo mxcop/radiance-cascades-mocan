@@ -2,8 +2,6 @@ import { Layout, Txt, View2D } from "@motion-canvas/2d";
 import { beginSlide } from "@motion-canvas/core";
 
 export default function* (view: View2D) {
-    yield* beginSlide('Opening Slide');
-
     view.add(
         <>
         <Layout direction={'column'} width={1000} alignItems={'center'} layout>
@@ -16,4 +14,6 @@ export default function* (view: View2D) {
         <Txt fill={'#434343'} y={500} fontFamily={'IBM Plex Mono'} fontSize={30} fontWeight={700} fontStyle={'italic'}>By Max Coppen</Txt>
         </>
     );
+
+    yield* beginSlide('Opening Slide');
 };

@@ -29,32 +29,9 @@ export default makeScene2D(function* (view) {
   //   drawProbe(view, new Vector2((1 << (i - 1)) * 16, (1 << (i - 1)) * 16), new Vector2((1 << i) * 16, (1 << i) * 16), cascade0, cascade1, color);
   // }
 
-  yield layers.setup();
-  yield view.add(
-    <Rect width={512} height={512} y={256}
-      radius={16} clip={true} layout>
-    <Three
-        width={512}
-        height={512}
-        resw={64}
-        resh={64}
-        camera={layers.camera}
-        scene={layers.threeScene}
-      />
-    </Rect>
-  );
   // yield* layers.probeSize(4, 1);
   // yield* layers.probeSize(16, 1);
-  yield *
-  tween(5, value => {
-    layers.dirCount(map(360, 4, easeInOutCubic(value)));
-  });
-  yield* waitFor(1);
-  yield *
-  tween(5, value => {
-    layers.dirCount(map(4, 360, easeInOutCubic(value)));
-  });
-  yield* waitFor(1);
+
 
   // const directions = createSignal<number>(4);
   // const pre_probe = createRef<Probe>();
