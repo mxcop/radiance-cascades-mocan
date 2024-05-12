@@ -6,12 +6,29 @@ in vec2 tuv;
 const float PI = 3.14159265;
 const float TAU = 2.0 * PI;
 
-// const int NUM_SAMPLES = 360;
+const vec2 LIGHT_POS = vec2(2.0, 32.0);
+const float LIGHT_RADIUS = 8.0;
+const vec2 OCCLUDER_POS = vec2(20.0, 16.0);
+const float OCCLUDER_RADIUS = 16.0;
+const float THICKNESS = 0.25;
 
-const vec2 LIGHT_POS = vec2(16.0, 32.0);
-const float LIGHT_RADIUS = 12.0;
-const vec2 OCCLUDER_POS = vec2(40.0, 32.0);
-const float OCCLUDER_RADIUS = 5.0;
+float aabb_intersect(vec2 rayOrigin, vec2 rayDir, vec2 boxMin, vec2 boxMax) {
+    vec2 tMin = (boxMin - rayOrigin) / rayDir;
+    vec2 tMax = (boxMax - rayOrigin) / rayDir;
+    vec2 t1 = min(tMin, tMax);
+    vec2 t2 = max(tMin, tMax);
+    float tNear = max(max(t1.x, t1.y), 0.0);
+    float tFar = min(t2.x, t2.y);
+    if (tNear < tFar) return tNear;
+    return -1.0;
+}
+
+float screen_dist(in vec2 p, in vec2 pos, in vec2 size, in float r)
+{
+    size -= r;
+    vec2 d = abs(p-pos)-size;
+    return min(0.0, max(d.x, d.y))+length(max(d,0.0))-r;
+}
 
 void main() {
     vec2 pixel_coord = tuv * size;
@@ -25,40 +42,35 @@ void main() {
         float angle = TAU * ((float(i) + 0.5) / float(dir_count));
         vec2 rd = vec2(cos(angle), sin(angle));
 
-        float light_scalar_proj = dot(LIGHT_POS - ro, rd);
-        vec2 proj_light_pos = light_scalar_proj * rd + ro;
-
-        float occluder_scalar_proj = dot(OCCLUDER_POS - ro, rd);
-        vec2 proj_occluder_pos = occluder_scalar_proj * rd + ro;
-
         /* Detect hit */
-        float contribution = 
-            max(
-                max(
-                    step(occluder_scalar_proj, 0.0),
-                    step(light_scalar_proj, occluder_scalar_proj)), 
-                    step(OCCLUDER_RADIUS, distance(proj_occluder_pos, OCCLUDER_POS)
-                )
-            );
+        float light_dist = aabb_intersect(ro, rd, LIGHT_POS - vec2(THICKNESS, LIGHT_RADIUS), LIGHT_POS + vec2(THICKNESS, LIGHT_RADIUS));
+        float occluder_dist = aabb_intersect(ro, rd, OCCLUDER_POS - vec2(THICKNESS, OCCLUDER_RADIUS), OCCLUDER_POS + vec2(THICKNESS, OCCLUDER_RADIUS));
 
-        contribution *= 
-            max(
-                step(0.0, light_scalar_proj) * step(distance(proj_light_pos, LIGHT_POS), LIGHT_RADIUS), 
-                smoothstep(LIGHT_RADIUS+ps, LIGHT_RADIUS-ps, distance(ro, LIGHT_POS))
-            );
-
-        radiance += contribution;
+        if (occluder_dist == 0.0) {
+            radiance = -1.0;
+            break;
+        }
+        if (occluder_dist >= 0.0 && occluder_dist < light_dist) {
+            continue;
+        }
+        if (light_dist < 0.5 && light_dist >= 0.0) {
+            radiance += 10.0;
+        }
+        if (light_dist >= 0.0 && light_dist > occluder_dist) {
+            radiance += 2.0;
+        }
     }
+
+    /* Draw the occluder */
+    if (radiance < 0.0) {
+        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        return;
+    }
+
     radiance /= float(dir_count);
 
-    vec3 color = vec3(1.0);
+    /* Edge fade */
+    float sd = min(-screen_dist(ro, vec2(size / 2.0), size / 2.0, 8.0) * 0.5, 1.0);
     
-    /* Draw occluder shape */
-    radiance = mix(radiance, 1.0, smoothstep(OCCLUDER_RADIUS+ps, OCCLUDER_RADIUS-ps, distance(pixel_coord, OCCLUDER_POS)));
-    color = mix(color, vec3(0.0), smoothstep(OCCLUDER_RADIUS+ps, OCCLUDER_RADIUS-ps, distance(pixel_coord, OCCLUDER_POS)));
-
-    /* Tonemapping */
-    radiance = pow(radiance, 1./2.2);
-
-    gl_FragColor = vec4(color, radiance);
+    gl_FragColor = vec4(vec3(1.0, 0.95, 0.9), radiance * sd);
 }
