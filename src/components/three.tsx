@@ -93,7 +93,7 @@ export class Three extends Layout {
     private configuredCamera(): Camera {
         const size = this.computedSize();
         const camera = this.camera();
-        const ratio = size.width / size.height;
+        const ratio = 1.0;// this.resw() / this.resh();
         const scale = 0.5;// this.zoom() / 2;
         if (camera instanceof OrthographicCamera) {
             camera.left = -ratio * scale;
