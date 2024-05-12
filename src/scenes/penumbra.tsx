@@ -1,4 +1,4 @@
-import { Line, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
+import { Circle, Line, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
 import { beginSlide, easeInOutCubic, map, tween, waitFor } from '@motion-canvas/core';
 import { Three } from '../components/three';
 import * as layers from '../three/penumbra';
@@ -14,6 +14,9 @@ export default makeScene2D(function* (view) {
             <Txt x={128} y={0} fontFamily={'JetBrains Mono'} fontWeight={800} fontSize={30} fill={'#545454'}>PENUMBRA</Txt>
             <Txt x={48} y={152} fontFamily={'JetBrains Mono'} fontWeight={800} fontSize={30} fill={'#545454'}>UMBRA</Txt>
             <Txt x={48} y={-152} fontFamily={'JetBrains Mono'} fontWeight={800} fontSize={30} fill={'#545454'}>LIGHT</Txt>
+            <Line points={[[384, 90], [384, -90]]} x={-256} lineWidth={8} lineCap={'round'} stroke={'#57c4fd'} />
+            <Circle x={-256+384} y={90} size={24} lineWidth={8} stroke={'#141414'} fill={'#57c4fd'} />
+            <Circle x={-256+384} y={-90} size={24} lineWidth={8} stroke={'#141414'} fill={'#57c4fd'} />
             <Three
                 width={512}
                 height={512}
