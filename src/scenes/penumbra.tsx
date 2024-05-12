@@ -54,7 +54,7 @@ export default makeScene2D(function* (view) {
             {/* Angle lines */}
             <Line ref={angleLineA} points={[[-240, -64], pointB]} lineWidth={8} lineCap={'round'} stroke={'#85e04c'} />
             <Line ref={angleLineB} points={[[-240, 64], pointB]} lineWidth={8} lineCap={'round'} stroke={'#85e04c'} />
-            <ArcVector ref={arcVector} position={new Vector2(128, -90)} radius={192} from={angle().x} to={angle().y} lineWidth={8} lineDash={[0, 16]} stroke={'#85e04c'} endArrow={false} counter>
+            <ArcVector ref={arcVector} position={new Vector2(128, -90)} radius={192} from={angle().x} to={angle().y} lineWidth={8} lineDash={[0, 16]} lineDashOffset={4} stroke={'#85e04c'} endArrow={false} counter>
                 <Txt ref={arcAngle} fontFamily={'JetBrains Mono'} fontWeight={800} fontSize={30} fill={'#85e04c'} />
             </ArcVector>
             {/* Text */}
