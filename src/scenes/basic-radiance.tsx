@@ -19,10 +19,10 @@ export default makeScene2D(function* (view) {
             <Probe color={'#57c4fd'} interval={new Vector2(0, 256)} directions={12} lineWidth={12} />
         </Layout>
         <Layout direction={'column'} padding={64} width={'100%'} height={'100%'} alignItems={'center'} justifyContent={'start'} layout>
-            <Txt fill={'#ffffff'} stroke={'#141414'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={80} fontWeight={800}>Basic Radiance</Txt>
+            <Txt fill={'#e4e4e4'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={80} fontWeight={800}>Deterministic Radiance</Txt>
         </Layout>
         <Layout direction={'column'} padding={64} width={'50%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
-            <Txt fill={'#747474'} fontFamily={'IBM Plex Mono'} fontSize={40} fontWeight={700} fontStyle={'italic'} rotation={-8}>A lot of rays!</Txt>
+            <Txt fill={'#747474'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'IBM Plex Mono'} fontSize={40} fontWeight={700} fontStyle={'italic'} rotation={-8}>A lot of rays!</Txt>
         </Layout>
         <Layout direction={'column'} padding={64} paddingTop={256} width={'100%'} height={'100%'} alignItems={'end'} justifyContent={'center'} layout>
             <Layout ref={aprox_txt} direction={'column'} width={750} height={'100%'} gap={16} layout>

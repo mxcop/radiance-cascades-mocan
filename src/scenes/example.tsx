@@ -18,7 +18,7 @@ export default makeScene2D(function* (view) {
   view.fill('#141414');
 
   yield* openingSlide(view);
-  yield* waitFor(1);
+  // yield* waitFor(1);
   // yield* beginSlide('Next Slide');
 
   const colors = ['#57c4fd', '#f85789', '#85e04c', '#222'];
