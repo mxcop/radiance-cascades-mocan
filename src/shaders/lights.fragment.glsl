@@ -12,6 +12,13 @@ const vec2 OCCLUDER_POS = vec2(32.0, 32.0);
 const float OCCLUDER_RADIUS = 6.0;
 const float THICKNESS = 0.25;
 
+const vec3 COLORS[4] = vec3[](
+    vec3(1.0, 0.0, 0.0),
+    vec3(0.0, 1.0, 0.0),
+    vec3(0.0, 0.0, 1.0),
+    vec3(1.0, 0.0, 1.0)
+);
+
 float intersectRayCircle(vec2 rayOrigin, vec2 rayDirection, vec2 circleCenter, float circleRadius) {
     // Normalize the ray direction
     vec2 normalizedRayDirection = normalize(rayDirection);
@@ -79,25 +86,38 @@ void main() {
         /* Detect hit */
         float light_dist = 1000000.0;
         vec3 light_color = vec3(1.0, 0.95, 0.9);
-        for(int y = 0; y < 3; y++) {
-            for(int x = 0; x < 3; x++) {
-                if (x == 1 && y == 1) continue;
-                if (x == 0 && y == 0) continue;
-                if (x == 2 && y == 2) continue;
-                if (x == 0 && y == 2) continue;
-                if (x == 2 && y == 0) continue;
+        for (int j = 0; j < 3; j++) {
+            float theta = TAU * ((float(j) + 0.5) / 3.0);
+            vec2 dir = vec2(cos(theta), sin(theta));
 
-                float dist = intersectRayCircle(ro, rd, vec2(14.0 + 18.0 * float(x), 14.0 + 18.0 * float(y)), LIGHT_RADIUS);
+            float dist = intersectRayCircle(ro, rd, vec2(32.0 + 2.0, 32.0) + dir * 20.0, LIGHT_RADIUS);
 
-                if (dist >= 0.0 && light_dist > dist) {
-                    light_dist = dist;
-                    if (x == 0 && y == 1) light_color = vec3(1.0, 0.0, 0.0);
-                    if (x == 1 && y == 0) light_color = vec3(0.0, 1.0, 0.0);
-                    if (x == 2 && y == 1) light_color = vec3(0.0, 0.0, 1.0);
-                    if (x == 1 && y == 2) light_color = vec3(1.0, 0.95, 0.9);
-                }
+            if (dist >= 0.0 && light_dist > dist) {
+                light_dist = dist;
+                light_color = COLORS[j];
             }
         }
+
+        // for(int y = 0; y < 3; y++) {
+        //     for(int x = 0; x < 3; x++) {
+        //         if ((x != 2 || y != 1) && (x != 0 || y != 1)) continue;
+        //         if (x == 1 && y == 1) continue;
+        //         if (x == 0 && y == 0) continue;
+        //         if (x == 2 && y == 2) continue;
+        //         if (x == 0 && y == 2) continue;
+        //         if (x == 2 && y == 0) continue;
+
+        //         float dist = intersectRayCircle(ro, rd, vec2(14.0 + 18.0 * float(x), 14.0 + 18.0 * float(y)), LIGHT_RADIUS);
+
+        //         if (dist >= 0.0 && light_dist > dist) {
+        //             light_dist = dist;
+        //             if (x == 0 && y == 1) light_color = vec3(1.0, 0.0, 0.0);
+        //             if (x == 1 && y == 0) light_color = vec3(0.0, 1.0, 0.0);
+        //             if (x == 2 && y == 1) light_color = vec3(0.0, 0.0, 1.0);
+        //             if (x == 1 && y == 2) light_color = vec3(1.0, 0.95, 0.9);
+        //         }
+        //     }
+        // }
         if (light_dist == 1000000.0) light_dist = -1.0;
 
         float occluder_dist = intersectRayCircle(ro, rd, OCCLUDER_POS, OCCLUDER_RADIUS);

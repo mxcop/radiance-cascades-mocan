@@ -15,7 +15,7 @@ export default makeScene2D(function* (view) {
 
     view.add(
         <>
-        <Layout x={-512}>
+        <Layout x={-512 + 64 + 16}>
             <Probe color={'#242424'} interval={new Vector2(0, 512)} directions={36} lineWidth={12} />
             <Probe color={'#57c4fd'} interval={new Vector2(0, 256)} directions={12} lineWidth={12} />
         </Layout>
