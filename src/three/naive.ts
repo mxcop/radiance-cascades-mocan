@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import fragment from '../shaders/penumbra.fragment.glsl?raw';
-import vertex from '../shaders/penumbra.vertex.glsl?raw';
+import fragment from '../shaders/naive.fragment.glsl?raw';
+import vertex from '../shaders/naive.vertex.glsl?raw';
 import { createComputed, createSignal, useScene } from '@motion-canvas/core';
 
 const layerMaterial = new THREE.ShaderMaterial({

@@ -6,11 +6,43 @@ in vec2 tuv;
 const float PI = 3.14159265;
 const float TAU = 2.0 * PI;
 
-const vec2 LIGHT_POS = vec2(2.0, 32.0);
-const float LIGHT_RADIUS = 8.0;
-const vec2 OCCLUDER_POS = vec2(20.0, 16.0);
-const float OCCLUDER_RADIUS = 16.0;
+const vec2 LIGHT_POS = vec2(42.0, 42.0);
+const float LIGHT_RADIUS = 6.5;
+const vec2 OCCLUDER_POS = vec2(24.0, 24.0);
+const float OCCLUDER_RADIUS = 4.0;
 const float THICKNESS = 0.25;
+
+float intersectRayCircle(vec2 rayOrigin, vec2 rayDirection, vec2 circleCenter, float circleRadius) {
+    // Normalize the ray direction
+    vec2 normalizedRayDirection = normalize(rayDirection);
+
+    // Calculate the vector from the ray origin to the circle center
+    vec2 oc = circleCenter - rayOrigin;
+
+    if (dot(oc, oc) <= circleRadius * circleRadius) {
+        return 0.0;
+    }
+
+    // Project the vector from the ray origin to the circle center onto the ray direction
+    float projLength = dot(oc, normalizedRayDirection);
+
+    // Calculate the perpendicular distance from the projected point to the circle's center
+    vec2 projectedPoint = rayOrigin + normalizedRayDirection * projLength;
+    vec2 pc = circleCenter - projectedPoint;
+
+    // Calculate the squared perpendicular distance
+    float distSq = dot(pc, pc);
+
+    // Check if the ray intersects the circle
+    if (distSq <= circleRadius * circleRadius) {
+        // Calculate the exact intersection point along the ray
+        float t = projLength - sqrt(circleRadius * circleRadius - distSq);
+        return t; // Return the entry distance along the ray
+    }
+
+    // The ray does not intersect the circle
+    return -1.0; // Return -1 indicating miss
+}
 
 float aabb_intersect(vec2 rayOrigin, vec2 rayDir, vec2 boxMin, vec2 boxMax) {
     vec2 tMin = (boxMin - rayOrigin) / rayDir;
@@ -43,8 +75,8 @@ void main() {
         vec2 rd = vec2(cos(angle), sin(angle));
 
         /* Detect hit */
-        float light_dist = aabb_intersect(ro, rd, LIGHT_POS - vec2(THICKNESS, LIGHT_RADIUS), LIGHT_POS + vec2(THICKNESS, LIGHT_RADIUS));
-        float occluder_dist = aabb_intersect(ro, rd, OCCLUDER_POS - vec2(THICKNESS, OCCLUDER_RADIUS), OCCLUDER_POS + vec2(THICKNESS, OCCLUDER_RADIUS));
+        float light_dist = intersectRayCircle(ro, rd, LIGHT_POS, LIGHT_RADIUS);
+        float occluder_dist = intersectRayCircle(ro, rd, OCCLUDER_POS, OCCLUDER_RADIUS);
 
         /* Inside occluder */ 
         if (occluder_dist == 0.0) {

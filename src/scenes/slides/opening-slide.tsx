@@ -1,5 +1,5 @@
 import { Layout, Txt, View2D } from "@motion-canvas/2d";
-import { beginSlide } from "@motion-canvas/core";
+import { Direction, beginSlide, slideTransition } from "@motion-canvas/core";
 
 export default function* (view: View2D) {
     view.add(

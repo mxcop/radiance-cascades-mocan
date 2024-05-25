@@ -1,5 +1,5 @@
 import { Circle, Grid, Icon, Layout, Line, PossibleCanvasStyle, Rect, Txt, View2D, makeScene2D } from '@motion-canvas/2d';
-import { SignalValue, Vector2, all, beginSlide, cos, createRef, createSignal, easeInOutCubic, loop, map, sin, tween, waitFor } from '@motion-canvas/core';
+import { Direction, SignalValue, Vector2, all, beginSlide, cos, createRef, createSignal, easeInOutCubic, loop, map, sin, slideTransition, tween, waitFor } from '@motion-canvas/core';
 import { Cascade, drawCascade, getCascade } from '../utils/cascade';
 import { drawProbe } from '../utils/probe';
 import { Probe } from '../components/probe';
