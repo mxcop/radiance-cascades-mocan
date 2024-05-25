@@ -7,5 +7,5 @@ import giWhat from './scenes/gi/what?scene';
 import giHow from './scenes/gi/how?scene';
 
 export default makeProject({
-  scenes: [opening, giWhat, giHow, penumbra, basicRadiance],
+  scenes: [opening, giWhat, giHow, basicRadiance, penumbra],
 });

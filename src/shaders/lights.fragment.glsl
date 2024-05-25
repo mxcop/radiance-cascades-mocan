@@ -7,9 +7,9 @@ const float PI = 3.14159265;
 const float TAU = 2.0 * PI;
 
 const vec2 LIGHT_POS = vec2(42.0, 42.0);
-const float LIGHT_RADIUS = 3.0;
+const float LIGHT_RADIUS = 4.0;
 const vec2 OCCLUDER_POS = vec2(32.0, 32.0);
-const float OCCLUDER_RADIUS = 8.0;
+const float OCCLUDER_RADIUS = 6.0;
 const float THICKNESS = 0.25;
 
 float intersectRayCircle(vec2 rayOrigin, vec2 rayDirection, vec2 circleCenter, float circleRadius) {
@@ -82,15 +82,19 @@ void main() {
         for(int y = 0; y < 3; y++) {
             for(int x = 0; x < 3; x++) {
                 if (x == 1 && y == 1) continue;
+                if (x == 0 && y == 0) continue;
+                if (x == 2 && y == 2) continue;
+                if (x == 0 && y == 2) continue;
+                if (x == 2 && y == 0) continue;
 
-                float dist = intersectRayCircle(ro, rd, vec2(10.0 + 22.0 * float(x), 10.0 + 22.0 * float(y)), LIGHT_RADIUS);
+                float dist = intersectRayCircle(ro, rd, vec2(14.0 + 18.0 * float(x), 14.0 + 18.0 * float(y)), LIGHT_RADIUS);
 
                 if (dist >= 0.0 && light_dist > dist) {
                     light_dist = dist;
-                    if (x == 0) light_color.x = 1.0;
-                    if (x == 2) light_color.x = 0.0;
-                    if (y == 0) light_color.y = 0.0;
-                    if (y == 2) light_color.y = 1.0;
+                    if (x == 0 && y == 1) light_color = vec3(1.0, 0.0, 0.0);
+                    if (x == 1 && y == 0) light_color = vec3(0.0, 1.0, 0.0);
+                    if (x == 2 && y == 1) light_color = vec3(0.0, 0.0, 1.0);
+                    if (x == 1 && y == 2) light_color = vec3(1.0, 0.95, 0.9);
                 }
             }
         }

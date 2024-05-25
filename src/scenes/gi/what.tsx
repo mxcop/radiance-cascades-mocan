@@ -2,6 +2,7 @@ import { Layout, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
 import { Direction, beginSlide, createRef, slideTransition } from '@motion-canvas/core';
 import { Three } from '../../components/three';
 import * as layers from '../../three/lights';
+import { SlideTitle } from '../../components/title';
 
 export default makeScene2D(function* (view) {
     view.fill('#141414');
@@ -9,12 +10,9 @@ export default makeScene2D(function* (view) {
     yield layers.setup();
     yield view.add(
         <>
-            <Layout direction={'column'} padding={48} width={'100%'} height={'100%'} alignItems={'start'} justifyContent={'start'} layout>
-                <Txt fill={'#e4e4e4'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={60} fontWeight={800}>The What & Why</Txt>
-                <Txt fill={'#848484'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={30} fontWeight={800}>(2D) Global Illumination</Txt>
-            </Layout>
+            <SlideTitle title={"The What & Why"} chapter="(2D) Global Illumination" />
             <Layout direction={'column'} padding={48} width={'100%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
-                <Txt fill={'#646464'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={30} fontStyle={'italic'} fontWeight={800}>It's cool...</Txt>
+                <Txt fill={'#646464'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={28} fontStyle={'italic'} fontWeight={800}>It's cool...</Txt>
             </Layout>
             <Rect width={640} height={640} radius={16} clip={true}>
                 {/* Shader */}
@@ -31,9 +29,9 @@ export default makeScene2D(function* (view) {
         </>
     );
 
-    yield* layers.dirCount(128, 0);
+    yield* layers.dirCount(256, 0);
 
-    yield* slideTransition(Direction.Left);
+    yield* slideTransition(Direction.Right);
 
     yield* beginSlide('GI Slide');
 });
