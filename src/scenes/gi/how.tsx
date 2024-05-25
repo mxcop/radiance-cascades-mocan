@@ -59,6 +59,7 @@ theta = TAU * ((i + 0.5) / dir_count);
     raysText().text(() => `${layers.dirCount().toFixed(0)}`);
 
     yield* layers.dirCount(256, 0);
+    yield* layers.animateT(0, 0);
 
     yield* slideTransition(Direction.Bottom, 2.0);
 

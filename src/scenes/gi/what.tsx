@@ -47,6 +47,7 @@ export default makeScene2D(function* (view) {
     );
 
     yield* layers.dirCount(256, 0);
+    yield* layers.animateT(0, 0);
 
     yield* slideTransition(Direction.Right, 2.0);
 
@@ -57,6 +58,8 @@ export default makeScene2D(function* (view) {
     yield* beginSlide('GI What');
 
     yield* why().opacity(1, 1);
+    yield* layers.animateT(3.5, 3.0);
+    yield* layers.animateT(0.0, 3.0);
 
     yield* beginSlide('GI Why');
 });

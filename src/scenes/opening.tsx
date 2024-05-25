@@ -5,7 +5,7 @@ import { drawProbe } from '../utils/probe';
 import { Probe } from '../components/probe';
 import openingSlide from './slides/opening-slide';
 import { Three } from '../components/three';
-import * as layers from '../three/penumbra';
+import * as layers from '../three/opening';
 
 // const Object = (config: {children: string}) => (
 //   <Rect fill={'#eee'} padding={[8, 16]} fontFamily={'JetBrains Mono'} layout>
@@ -17,7 +17,32 @@ import * as layers from '../three/penumbra';
 export default makeScene2D(function* (view) {
   view.fill('#141414');
 
-  yield* openingSlide(view);
+    // yield layers.setup();
+    view.add(
+        <>
+        <Layout direction={'column'} width={1000} alignItems={'center'} layout>
+            <Layout gap={48} layout>
+            <Txt fill={'#ffc66c'} fontFamily={'JetBrains Mono'} fontSize={80} fontWeight={800} shadowColor={'#ffc66c'} shadowOffset={[0, 0]} shadowBlur={48}>Radiance</Txt>
+            <Txt fill={'#fff'} fontFamily={'JetBrains Mono'} fontSize={80} fontWeight={800}>Cascades</Txt>
+            </Layout>
+            <Txt fill={'#9a9a9a'} fontFamily={'IBM Plex Mono'} fontSize={40} fontWeight={700} fontStyle={'italic'} rotation={-8} alignSelf={'end'}>In a nutshell!</Txt>
+        </Layout>
+        <Txt fill={'#434343'} y={500} fontFamily={'IBM Plex Mono'} fontSize={30} fontWeight={700} fontStyle={'italic'}>By Max Coppen</Txt>
+        <Layout>
+        {/* <Three
+            width={1920}
+            height={1080}
+            resw={256}
+            resh={128}
+            camera={layers.camera}
+            scene={layers.threeScene}
+            layout={false}
+        /> */}
+        </Layout>
+        </>
+    );
+
+    yield* beginSlide('Opening Slide');
   // yield* waitFor(1);
   // yield* beginSlide('Next Slide');
 
