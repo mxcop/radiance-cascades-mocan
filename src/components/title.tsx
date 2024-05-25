@@ -27,7 +27,7 @@ export class SlideTitle extends Layout {
     public constructor(props?: SlideTitleProps) {
         super({
             layout: true,
-            direction: 'column',
+            direction: 'column-reverse',
             padding: 48,
             width: '100%',
             height: '100%',
@@ -36,8 +36,8 @@ export class SlideTitle extends Layout {
 
         this.add(
             <>
-            <Txt ref={makeRef(this, 'titleTxt')} text={props.title} fill={'#e4e4e4'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={60} fontWeight={800} />
             <Txt ref={makeRef(this, 'chapterTxt')} text={props.chapter} fill={'#848484'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={30} fontWeight={800} />
+            <Txt ref={makeRef(this, 'titleTxt')} text={props.title} fill={'#e4e4e4'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={60} fontWeight={800} />
             </>
         );
     }

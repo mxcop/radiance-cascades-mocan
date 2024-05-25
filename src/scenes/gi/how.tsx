@@ -73,13 +73,13 @@ theta = TAU * ((i + 0.5) / dir_count);
         rays().opacity(1, 1)
     );
 
-    yield* beginSlide('GI Slide');
+    yield* beginSlide('Low Dir Count');
 
     yield* layers.dirCount(4, 4)
 
-    yield* beginSlide('GI Slide');
+    yield* beginSlide('High Dir Count');
 
     yield* layers.dirCount(256, 4);
 
-    yield* beginSlide('GI Slide');
+    yield* beginSlide('End GI Slide');
 });
