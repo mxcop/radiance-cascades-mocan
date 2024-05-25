@@ -1,4 +1,4 @@
-import { Layout, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
+import { Code, Layout, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
 import { Direction, all, beginSlide, createRef, createSignal, makeRefs, slideTransition } from '@motion-canvas/core';
 import { Three } from '../../components/three';
 import * as layers from '../../three/lights';
@@ -11,7 +11,7 @@ export default makeScene2D(function* (view) {
 
     const slideTitle = createRef<SlideTitle>();
     const coolText = createRef<Txt>();
-    const probeText = createRef<Txt>();
+    const probeText = createRef<Layout>();
     const raysText = createRef<Txt>();
     const rays = createRef<Layout>();
 
@@ -32,9 +32,13 @@ export default makeScene2D(function* (view) {
                     value={() => layers.dirCount() / (256.0 + 10.0)}
                     width={416}
                 />
+                <Code fontSize={24} marginRight={-48} marginTop={128} code={`\
+theta = TAU * ((i + 0.5) / dir_count);
+`}
+                />
             </Layout>
-            <Layout direction={'column'} paddingTop={640+128} width={'100%'} height={'100%'} gap={16} alignItems={'center'} justifyContent={'center'} layout>
-                <Txt ref={probeText} opacity={0} fill={'#85e04c'} fontFamily={'JetBrains Mono'} fontSize={32} fontWeight={800}>
+            <Layout ref={probeText} opacity={0} direction={'column'} paddingTop={640+128} width={'100%'} height={'100%'} gap={16} alignItems={'center'} justifyContent={'center'} layout>
+                <Txt fill={'#85e04c'} fontFamily={'JetBrains Mono'} fontSize={32} fontWeight={800}>
                     Radiance probes
                 </Txt>
                 <Txt fill={'#646464'} fontFamily={'JetBrains Mono'} fontStyle={'italic'} fontSize={28} fontWeight={800}>(Deterministic)</Txt>

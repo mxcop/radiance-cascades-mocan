@@ -6,6 +6,11 @@ import basicRadiance from './scenes/basic-radiance?scene';
 import giWhat from './scenes/gi/what?scene';
 import giHow from './scenes/gi/how?scene';
 
+import {Code, LezerHighlighter} from '@motion-canvas/2d';
+import {parser} from '@lezer/javascript';
+
+Code.defaultHighlighter = new LezerHighlighter(parser);
+
 export default makeProject({
   scenes: [opening, giWhat, giHow, basicRadiance, penumbra],
 });
