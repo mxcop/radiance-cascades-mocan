@@ -22,6 +22,9 @@ export default makeScene2D(function* (view) {
             <Txt x={-152} fill={'#57c4fd'} fontFamily={'IBM Plex Mono'} fontSize={42} fontWeight={700}>8</Txt>
             <Probe y={256} color={'#f85789'} interval={new Vector2(0, 100)} directions={4 * 2 * 2} lineWidth={10} />
             <Txt x={-152} y={256} fill={'#f85789'} fontFamily={'IBM Plex Mono'} fontSize={42} fontWeight={700}>16</Txt>
+            <Layout direction={'column'} padding={128} width={'40%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
+                <Txt fill={'#747474'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'} rotation={6}>Branch factor ↑</Txt>
+            </Layout>
         </Layout>
         <Layout direction={'column'} padding={128} width={'20%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
             <Txt fill={'#747474'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'} rotation={-8}>↑ Visual of a probe</Txt>
