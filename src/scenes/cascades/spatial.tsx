@@ -48,7 +48,7 @@ export default makeScene2D(function* (view) {
                 <Txt fill={'#747474'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'}>Cascade Observation:</Txt>
                 <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>The number of <Txt fill={'#85e04c'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>rays</Txt> within</Txt>
                 <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Each cascade remains <Txt fill={'#85e04c'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>equal</Txt></Txt>
-                <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Across the cascade levels.</Txt>
+                <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Across all cascade levels.</Txt>
                 <Txt fill={'#848484'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'}>(With branch factor 2)</Txt>
             </Layout>
         </Layout>

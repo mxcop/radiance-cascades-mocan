@@ -45,7 +45,7 @@ export default makeScene2D(function* (view) {
 
     yield* cascadeIdx(0, 0);
 
-    yield* slideTransition(Direction.Right, 2.0);
+    yield* slideTransition(Direction.Bottom, 2.0);
 
     yield* beginSlide('Cascade 0');
     cascadeIdx(1);
@@ -64,7 +64,7 @@ export default makeScene2D(function* (view) {
     layers.intervalMin(0.0);
     layers.intervalMax(3.0);
     yield* radTxt().opacity(1.0, 1.0);
-    
+
     yield* beginSlide('Radiance Cascade 0');
     
     cascadeIdx(1);

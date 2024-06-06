@@ -34,7 +34,7 @@ export default makeScene2D(function* (view) {
         </>
     );
 
-    yield* slideTransition(Direction.Right, 2.0);
+    yield* slideTransition(Direction.Bottom, 2.0);
 
     yield* beginSlide('Basic Radiance Slide [0]');
 
