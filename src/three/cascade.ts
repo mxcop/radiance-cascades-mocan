@@ -31,7 +31,7 @@ const orbit = new THREE.Group();
 orbit.add(camera);
 threeScene.add(orbit);
 
-const probeSize = createSignal<number>(4);
+const probeSize = createSignal<number>(2);
 
 const update = createComputed(() => {
     const ps: number = probeSize();

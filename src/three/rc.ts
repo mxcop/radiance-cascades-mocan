@@ -1,13 +1,13 @@
 import * as THREE from 'three';
-import fragment from '../shaders/lights.fragment.glsl?raw';
-import vertex from '../shaders/naive.vertex.glsl?raw';
+import fragment from '../shaders/radiance.fragment.glsl?raw';
+import vertex from '../shaders/cascade.vertex.glsl?raw';
 import { createComputed, createSignal, useScene } from '@motion-canvas/core';
 
 const layerMaterial = new THREE.ShaderMaterial({
     uniforms: {
-        dir_count: {value: 256},
+        probeSize: {value: new THREE.Vector2(8, 8)},
+        interval: {value: new THREE.Vector2(0, 0)},
         size: {value: new THREE.Vector2(64, 64)},
-        animate: {value: 0.0}
     },
     vertexShader: vertex,
     fragmentShader: fragment,
@@ -21,9 +21,8 @@ const plane = new THREE.PlaneGeometry();
 let layer: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>;
 const material = layerMaterial.clone();
 const mesh = new THREE.Mesh(plane, material);
-mesh.material.uniforms.dir_count.value = 256;
-mesh.material.uniforms.animate.value = 0.0;
 mesh.material.uniforms.size.value = new THREE.Vector2(64, 64);
+mesh.material.uniforms.probeSize.value = new THREE.Vector2(8, 8);
 mesh.renderOrder = 0;
 layer = mesh;
 threeScene.add(layer);
@@ -33,29 +32,14 @@ const orbit = new THREE.Group();
 orbit.add(camera);
 threeScene.add(orbit);
 
-const radianceTarget = new THREE.WebGLRenderTarget(64, 64, {
-    minFilter: THREE.NearestFilter,
-    magFilter: THREE.NearestFilter,
-    format: THREE.RGBAFormat
-});
-
-const renderer = new THREE.WebGLRenderer({
-    canvas: document.createElement('canvas'),
-    // antialias: true,
-    alpha: true,
-    stencil: true,
-});
-
-renderer.setRenderTarget(radianceTarget);
-renderer.render(threeScene, camera);
-
-const dirCount = createSignal<number>(256);
-const animateT = createSignal<number>(0.0);
+const probeSize = createSignal<number>(2);
+const intervalMin = createSignal<number>(0.0);
+const intervalMax = createSignal<number>(0.0);
 
 const update = createComputed(() => {
-    const dc: number = dirCount();
-    mesh.material.uniforms.dir_count.value = dc;
-    mesh.material.uniforms.animate.value = animateT();
+    const ps: number = probeSize();
+    mesh.material.uniforms.probeSize.value = new THREE.Vector2(ps, ps);
+    mesh.material.uniforms.interval.value = new THREE.Vector2(intervalMin(), intervalMax());
 });
 
 async function setup() {
@@ -66,4 +50,4 @@ async function setup() {
     camera.position.set(0, 0, 0);
 }
 
-export { threeScene, camera, layer, setup, orbit, dirCount, animateT };
+export { threeScene, camera, layer, setup, orbit, probeSize, intervalMin, intervalMax };
