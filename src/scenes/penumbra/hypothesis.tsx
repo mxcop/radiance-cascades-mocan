@@ -99,6 +99,9 @@ export default makeScene2D(function* (view) {
                     <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>and lower spatial resolution with higher angular resolution farther away from a light source."</Txt>
                 </Layout>
             </Layout>
+            <Layout direction={'column'} padding={48} width={'100%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
+                <Txt fill={'#646464'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={28} fontStyle={'italic'} fontWeight={800}>As shown in the paper by Alexander Sannikov.</Txt>
+            </Layout>
         </>
     );
 
