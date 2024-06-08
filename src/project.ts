@@ -8,6 +8,7 @@ import giCost from './scenes/gi/cost?scene';
 import penumbraIntro from './scenes/penumbra/intro?scene';
 import penumbraAngular from './scenes/penumbra/angular?scene';
 import penumbraSpatial from './scenes/penumbra/spatial?scene';
+import penumbraHypothesis from './scenes/penumbra/hypothesis?scene';
 import cascadesIntro from './scenes/cascades/intro?scene';
 import cascadesAngular from './scenes/cascades/angular?scene';
 import cascadesSpatial from './scenes/cascades/spatial?scene';
@@ -29,7 +30,7 @@ Code.defaultHighlighter = new LezerHighlighter(parser);
 export default makeProject({
   scenes: [opening, 
     giIntro, giProblem, giSolution, giCost, 
-    penumbraIntro, penumbraAngular, penumbraSpatial, 
+    penumbraIntro, penumbraAngular, penumbraSpatial, penumbraHypothesis, 
     cascadesIntro, cascadesAngular, cascadesSpatial, cascadesFinal, 
     rcIntro, rcCascades, rcMerge, rcResult,
     bilinearFixIntro, bilinearFixProblem, bilinearFixResult,
