@@ -18,7 +18,6 @@ export default makeScene2D(function* (view) {
 
     yield view.add(
         <>
-            <SlideTitle title={"Angular Observation"} chapter="Penumbra Theorem" />
             <Probe ref={probeBg} color="#343434" interval={new Vector2(0, 512)} directions={16} />
             <Probe ref={probe} color="#57c4fd" interval={new Vector2(0, 256)} directions={16} />
             <Circle ref={lightSource} x={() => -spacing() * 2.0} size={64} fill="#ffc66c" clip>
@@ -34,6 +33,7 @@ export default makeScene2D(function* (view) {
                     <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>From the light we are sampling.</Txt>
                 </Layout>
             </Layout>
+            <SlideTitle title={"Angular Observation"} chapter="Penumbra Theorem" />
         </>
     );
 

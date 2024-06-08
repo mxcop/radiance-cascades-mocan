@@ -12,7 +12,12 @@ import cascadesIntro from './scenes/cascades/intro?scene';
 import cascadesAngular from './scenes/cascades/angular?scene';
 import cascadesSpatial from './scenes/cascades/spatial?scene';
 import cascadesFinal from './scenes/cascades/cascades?scene';
+import rcIntro from './scenes/radiance/intro?scene';
 import rcCascades from './scenes/radiance/cascades?scene';
+import rcMerge from './scenes/radiance/merge?scene';
+import rcResult from './scenes/radiance/result?scene';
+import bilinearFixIntro from './scenes/bilinear-fix/intro?scene';
+import bilinearFixProblem from './scenes/bilinear-fix/problem?scene';
 
 import {Code, LezerHighlighter} from '@motion-canvas/2d';
 import {parser} from '@lezer/javascript';
@@ -24,5 +29,6 @@ export default makeProject({
     giIntro, giProblem, giSolution, giCost, 
     penumbraIntro, penumbraAngular, penumbraSpatial, 
     cascadesIntro, cascadesAngular, cascadesSpatial, cascadesFinal, 
-    rcCascades],
+    rcIntro, rcCascades, rcMerge, rcResult,
+    bilinearFixIntro, bilinearFixProblem],
 });
