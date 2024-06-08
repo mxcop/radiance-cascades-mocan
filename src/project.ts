@@ -18,6 +18,8 @@ import rcMerge from './scenes/radiance/merge?scene';
 import rcResult from './scenes/radiance/result?scene';
 import bilinearFixIntro from './scenes/bilinear-fix/intro?scene';
 import bilinearFixProblem from './scenes/bilinear-fix/problem?scene';
+import bilinearFixResult from './scenes/bilinear-fix/result?scene';
+import theEnd from './scenes/the-end?scene';
 
 import {Code, LezerHighlighter} from '@motion-canvas/2d';
 import {parser} from '@lezer/javascript';
@@ -30,5 +32,6 @@ export default makeProject({
     penumbraIntro, penumbraAngular, penumbraSpatial, 
     cascadesIntro, cascadesAngular, cascadesSpatial, cascadesFinal, 
     rcIntro, rcCascades, rcMerge, rcResult,
-    bilinearFixIntro, bilinearFixProblem],
+    bilinearFixIntro, bilinearFixProblem, bilinearFixResult,
+    theEnd],
 });
