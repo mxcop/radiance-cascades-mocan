@@ -22,6 +22,8 @@ import bilinearFixProblem from './scenes/bilinear-fix/problem?scene';
 import bilinearFixResult from './scenes/bilinear-fix/result?scene';
 import theEnd from './scenes/the-end?scene';
 
+import bilinearTest from './scenes/bilinear-fix-test?scene';
+
 import {Code, LezerHighlighter} from '@motion-canvas/2d';
 import {parser} from '@lezer/javascript';
 

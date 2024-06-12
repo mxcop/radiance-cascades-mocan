@@ -4,6 +4,7 @@ import { SlideTitle } from '../../components/title';
 import * as layers from '../../three/rc';
 import { Probe } from '../../components/probe';
 import light from '../../icons/light.svg';
+import { BiProbe } from '../../components/biprobe';
 
 export default makeScene2D(function* (view) {
     view.fill('#141414');
@@ -15,6 +16,11 @@ export default makeScene2D(function* (view) {
     const mergeRay = createRef<Line>();
     const occlusionRay = createRef<Line>();
     const summary = createRef<Layout>();
+
+    const biProbe1 = createRef<BiProbe>();
+    const biProbe2 = createRef<BiProbe>();
+    const biProbe3 = createRef<BiProbe>();
+    const biProbe4 = createRef<BiProbe>();
 
     const blinkBiProbes = createSignal<number>(0.0);
     const blinkBiRays = createSignal<number>(0.0);
@@ -32,18 +38,6 @@ export default makeScene2D(function* (view) {
                 <Probe x={probeSpacing} y={probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
                 <Probe x={0} y={0} color={'#57c4fd'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
                 <Probe opacity={blinkBiProbes} x={0} y={0} color={'#f85789'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
-            </Layout>
-            {/* Top right */}
-            <Layout x={() => probeSpacing * 2.0 + offset()} y={-probeSpacing * 2.0}>
-                <Probe x={-probeSpacing} y={-probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
-                <Probe x={probeSpacing} y={-probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
-                <Probe x={-probeSpacing} y={probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
-                <Probe x={probeSpacing} y={probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
-                <Probe x={0} y={0} color={'#57c4fd'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
-                <Probe opacity={blinkBiProbes} x={0} y={0} color={'#f85789'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
-            
-                <Probe ref={mergeProbe} opacity={0} x={-probeSpacing} y={probeSpacing} color={'#f85789'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
-                <Line ref={mergeRay} opacity={0} points={[[-96, 96], [-96, 96]]} lineWidth={10} lineCap={'round'} endArrow stroke="#f85789" />
             </Layout>
             {/* Bottom left */}
             <Layout x={() => -probeSpacing * 2.0 + offset()} y={probeSpacing * 2.0}>
@@ -68,37 +62,61 @@ export default makeScene2D(function* (view) {
                 <Probe x={0} y={0} color={'#57c4fd'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
                 <Probe opacity={blinkBiProbes} x={0} y={0} color={'#f85789'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
             </Layout>
+            <Circle x={offset} size={128} fill="#ffc66c" clip>
+                <Img width={64} height={64} src={light} />
+            </Circle>
+            {/* Top right */}
+            <Layout x={() => probeSpacing * 2.0 + offset()} y={-probeSpacing * 2.0}>
+                <Probe x={-probeSpacing} y={-probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
+                <Probe x={probeSpacing} y={-probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
+                <Probe x={probeSpacing} y={probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
+                <Probe x={0} y={0} color={'#57c4fd'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
+                <Probe opacity={blinkBiProbes} x={0} y={0} color={'#f85789'} interval={new Vector2(probeLen, probeLen+64)} directions={16} lineWidth={10} />
+            
+                <Probe opacity={0} x={-probeSpacing} y={probeSpacing} color={'#f85789'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
+                
+                <BiProbe ref={biProbe1} x={-probeSpacing} y={probeSpacing} color={'#f85789'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} branchFactor={4} nextProbePos={new Vector2(probeSpacing, -probeSpacing)} />
+                <BiProbe ref={biProbe2} x={-probeSpacing} y={probeSpacing} color={'#f85789'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} branchFactor={4} nextProbePos={new Vector2(probeSpacing - (probeSpacing * 2.0) * 2.0, -probeSpacing)} />
+                <BiProbe ref={biProbe3} x={-probeSpacing} y={probeSpacing} color={'#f85789'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} branchFactor={4} nextProbePos={new Vector2(probeSpacing, -probeSpacing + (probeSpacing * 2.0) * 2.0)} />
+                <BiProbe ref={biProbe4} x={-probeSpacing} y={probeSpacing} color={'#f85789'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} branchFactor={4} nextProbePos={new Vector2(probeSpacing - (probeSpacing * 2.0) * 2.0, -probeSpacing + (probeSpacing * 2.0) * 2.0)} />
+                
+                <Probe ref={mergeProbe} x={-probeSpacing} y={probeSpacing} color={'#85e04c'} interval={new Vector2(0, probeLen)} directions={4} lineWidth={10} />
+                <Line ref={mergeRay} opacity={0} points={[[-96, 96], [-96, 96]]} lineWidth={10} lineCap={'round'} endArrow stroke="#f85789" />
+            </Layout>
             <SlideTitle title={"Fundamental Disconnect"} chapter="Bilinear Fix" />
             <Layout direction={'column'} padding={64} width={'100%'} height={'60%'} alignItems={'start'} justifyContent={'start'} layout>
                 <Layout direction={'column'} width={512} height={'100%'} gap={16} justifyContent={'start'} layout>
                     <Layout direction={'row'} gap={16} alignItems={'start'} layout>
                         <Rect fill="#85e04c" radius={6} size={32} />
                         <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>
-                            Cascade N
+                            Cascade 0
                         </Txt>
                     </Layout>
                     <Layout direction={'row'} gap={16} alignItems={'start'} layout>
                         <Rect fill="#57c4fd" radius={6} size={32} />
                         <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>
-                            Cascade N+1
+                            Cascade 1
                         </Txt>
                     </Layout>
                 </Layout>
             </Layout>
             <Layout ref={summary} opacity={0} direction={'column'} padding={64} width={'100%'} height={'100%'} alignItems={'start'} justifyContent={'center'} layout>
-                <Layout direction={'column'} width={512} height={'100%'} gap={16} justifyContent={'center'} layout>
+                <Layout direction={'column'} paddingTop={128+64} width={512} height={'100%'} gap={16} justifyContent={'center'} layout>
                     <Txt fill={'#747474'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'}>Problem:</Txt>
-                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>We are always using bilinear probes.</Txt>
-                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Even when they shouldn't be used.</Txt>
-                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>We need to check for <Txt fill={'#f85789'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>occlusion</Txt>.</Txt>
+                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Rays are not connected between cascades.</Txt>
+                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>This causes artifacts, e.g. ringing.</Txt>
+                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>We need to connect the <Txt fill={'#f85789'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>rays</Txt>.</Txt>
+                    <Txt marginTop={32} fill={'#f85789'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>16x the ray count!</Txt>
                 </Layout>
             </Layout>
-            <Circle x={offset} size={128} fill="#ffc66c" clip>
-                <Img width={64} height={64} src={light} />
-            </Circle>
             <Line x={offset} ref={occlusionRay} opacity={0} points={[[96, -96], [-192, 192]]} lineWidth={10} lineCap={'round'} endArrow stroke="#f85789" />
         </>
     );
+
+    yield biProbe1().animate_out(0.0);
+    yield biProbe2().animate_out(0.0);
+    yield biProbe3().animate_out(0.0);
+    yield* biProbe4().animate_out(0.0);
 
     yield* slideTransition(Direction.Bottom, 2.0);
 
@@ -117,14 +135,23 @@ export default makeScene2D(function* (view) {
     yield* beginSlide('Bilinear Rays');
 
     yield* all(
-        blinkBiRays(0.0, 1.0),
         mergeRay().opacity(0.0, 1.0),
+        blinkBiRays(0.0, 1.0),
+        mergeProbe().color("#f85789", 1.0)
     );
-    yield* occlusionRay().opacity(1.0, 1.0);
-    yield* beginSlide('Test test');
+    yield* beginSlide('Blink');
+
+    yield mergeProbe().animate_out(1.0);
+
+    yield biProbe1().animate_in(2.0);
+    yield biProbe2().animate_in(2.0);
+    yield biProbe3().animate_in(2.0);
+    yield* biProbe4().animate_in(2.0);
+
+    yield* beginSlide('New Ray Layout');
     
     yield offset(256, 2.0);
     yield* waitFor(1.0);
     yield* summary().opacity(1.0, 2.0);
-    yield* beginSlide('Bilinear Rays');
+    yield* beginSlide('Summary');
 });
