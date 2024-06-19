@@ -14,6 +14,7 @@ import cascadesAngular from './scenes/cascades/angular?scene';
 import cascadesSpatial from './scenes/cascades/spatial?scene';
 import cascadesFinal from './scenes/cascades/cascades?scene';
 import rcIntro from './scenes/radiance/intro?scene';
+import rcData from './scenes/radiance/data?scene';
 import rcCascades from './scenes/radiance/cascades?scene';
 import rcMerge from './scenes/radiance/merge?scene';
 import rcResult from './scenes/radiance/result?scene';
@@ -34,7 +35,7 @@ export default makeProject({
     giIntro, giProblem, giSolution, giCost, 
     penumbraIntro, penumbraAngular, penumbraSpatial, penumbraHypothesis, 
     cascadesIntro, cascadesAngular, cascadesSpatial, cascadesFinal, 
-    rcIntro, rcCascades, rcMerge, rcResult,
+    rcIntro, rcData, rcCascades, rcMerge, rcResult,
     bilinearFixIntro, bilinearFixProblem, bilinearFixResult,
     theEnd],
 });

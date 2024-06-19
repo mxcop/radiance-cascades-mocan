@@ -32,7 +32,7 @@ export default makeScene2D(function* (view) {
                         lineDash={[20, 30]}
                         stroke="#646464"
                         lineCap={'round'}
-                        points={[[-131, -95], [289, 118]]}
+                        points={[[-131, -100], [289, 118]]}
                     />
                     <Line opacity={() => 1.0 - switchT()} layout={false}
                         lineWidth={10}

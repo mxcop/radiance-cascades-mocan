@@ -8,7 +8,7 @@ export default makeScene2D(function* (view) {
         <>
             <Layout direction={'column'} padding={32} width={'100%'} height={'100%'} alignItems={'center'} justifyContent={'center'} layout>
                 <Txt text={"(2D) Global Illumination"} fill={'#e4e4e4'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={60} fontWeight={800} />
-                <Txt text={"What are we trying to do?"} marginTop={32} fill={'#848484'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={30} fontWeight={800} />
+                <Txt text={"What are we trying to solve?"} marginTop={32} fill={'#848484'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={30} fontWeight={800} />
             </Layout>
         </>
     );

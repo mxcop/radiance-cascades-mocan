@@ -11,6 +11,7 @@ export default makeScene2D(function* (view) {
 
     const nextRing = createRef<Layout>();
     const branchFactor = createRef<Layout>();
+    const cascadeTxt = createRef<Txt>();
 
     view.add(
         <>
@@ -29,7 +30,10 @@ export default makeScene2D(function* (view) {
         <Layout direction={'column'} padding={128} width={'20%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
             <Txt fill={'#747474'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'} rotation={-8}>↑ Visual of a probe</Txt>
         </Layout>
-        <SlideTitle title={"Rings of rays?"} chapter="Exploiting Observations" />
+        <Layout ref={cascadeTxt} opacity={0} direction={'column'} padding={128+32} width={'20%'} height={'100%'} alignItems={'start'} justifyContent={'start'} layout>
+            <Txt fill={'#57c4fd'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'} rotation={8}>↓ These are cascades</Txt>
+        </Layout>
+        <SlideTitle title={"Angular"} chapter="Exploiting Observations" />
         <Layout direction={'column'} padding={128} width={'100%'} height={'100%'} alignItems={'end'} justifyContent={'center'} layout>
             <Layout direction={'column'} width={512} height={'100%'} gap={16} justifyContent={'center'} layout>
                 <Txt fill={'#747474'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'}>Angular Observation:</Txt>
@@ -92,6 +96,7 @@ export default makeScene2D(function* (view) {
     yield* beginSlide('Smaller Interval');
 
     yield* nextRing().opacity(1.0, 2.0);
+    yield* cascadeTxt().opacity(1.0, 1.0);
 
     yield* beginSlide('Next Ring');
 

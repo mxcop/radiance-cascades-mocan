@@ -19,7 +19,7 @@ export default makeScene2D(function* (view) {
         <Layout direction={'column'} padding={128} width={'25%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
             <Txt fill={'#747474'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'} rotation={-8}>↑ 2x2 pixels</Txt>
         </Layout>
-        <SlideTitle title={"How about the spatial?"} chapter="Exploiting Observations" />
+        <SlideTitle title={"Spatial"} chapter="Exploiting Observations" />
         <Layout direction={'column'} padding={128} width={'100%'} height={'100%'} alignItems={'end'} justifyContent={'center'} layout>
             <Layout ref={spatialOb} direction={'column'} width={512} height={'100%'} gap={16} justifyContent={'center'} layout>
                 <Txt fill={'#747474'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'}>Spatial Observation:</Txt>

@@ -33,7 +33,7 @@ export default makeScene2D(function* (view) {
                     scene={layers.threeScene}
                     layout={false}
                 />
-                <Txt ref={dataTxt} x={-320} offsetX={-1} y={-320} offsetY={-1} padding={32} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={36} fontWeight={700}>Probe Layout</Txt>
+                <Txt ref={dataTxt} x={-320} offsetX={-1} y={-320} offsetY={-1} padding={32} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={36} fontWeight={700}>Cascade Layout</Txt>
                 <Txt ref={radTxt} opacity={0} x={-320} offsetX={-1} y={-320} offsetY={-1} padding={32} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fill={'#85e04c'} fontFamily={'IBM Plex Mono'} fontSize={36} fontWeight={700}>Radiance</Txt>
             </Rect>
             <Layout direction={'column'} padding={128} width={'100%'} height={'100%'} alignItems={'center'} justifyContent={'end'} layout>
@@ -53,9 +53,11 @@ export default makeScene2D(function* (view) {
 
     yield* beginSlide('Cascade 0');
     cascadeIdx(1);
+    yield* probe().interval(new Vector2(48, 128+64), 0.0);
     probe().set_directions(4 * 4);
     yield* beginSlide('Cascade 1');
     cascadeIdx(2);
+    yield* probe().interval(new Vector2(96, 128+64), 0.0);
     probe().set_directions(4 * 4 * 4);
     yield* beginSlide('Cascade 2');
     yield* all(probe().opacity(0.0, 0.5), showcase().x(0, 1.0));

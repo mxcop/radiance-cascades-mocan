@@ -101,7 +101,7 @@ export default makeScene2D(function* (view) {
                     <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>For each ray, find 4 closest N+1 probes.</Txt>
                     <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Within these probes find 4 closest rays.</Txt>
                     <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Rays are <Txt fill={'#57c4fd'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>averaged</Txt> within their probe.</Txt>
-                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Merge using <Txt fill={'#57c4fd'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>bilinear weights</Txt> for probes.</Txt>
+                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>Merge using <Txt fill={'#57c4fd'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>bilinear interpolation</Txt> for probes.</Txt>
                 </Layout>
             </Layout>
         </>
