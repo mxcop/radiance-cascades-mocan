@@ -27,7 +27,8 @@ export default makeScene2D(function* (view) {
     yield view.add(
         <>
             <SlideTitle title={"Spatial Observation"} chapter="Penumbra Theorem" />
-            <Layout opacity={() => 1.0 - showcase()}>
+            {/* <Layout opacity={() => 1.0 - showcase()}> */}
+            <Layout opacity={0.0}>
             {/* Axis lines */}
             <Line 
                 position={[-sf * 2.0, sf * 2.0]}
@@ -172,14 +173,14 @@ export default makeScene2D(function* (view) {
 
     yield* beginSlide('GI Slide');
 
-    yield* progress(0.35, 0.0);
-    yield* sampleOpacity(1.0, 1.0);
+    // yield* progress(0.35, 0.0);
+    // yield* sampleOpacity(1.0, 1.0);
 
-    yield* beginSlide('Large incline');
+    // yield* beginSlide('Large incline');
 
-    yield* progress(0.7, 4.0);
+    // yield* progress(0.7, 4.0);
     
-    yield* beginSlide('Small incline');
+    // yield* beginSlide('Small incline');
     
     yield* showcase(1.0, 2.0);
     
