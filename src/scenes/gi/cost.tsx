@@ -12,12 +12,14 @@ export default makeScene2D(function* (view) {
     view.fill('#141414');
 
     const aprox_txt = createRef<Txt>();
+    const probe_0 = createRef<Probe>();
+    const probe_1 = createRef<Probe>();
 
     view.add(
         <>
         <Layout x={-512 + 64 + 16}>
-            <Probe color={'#242424'} interval={new Vector2(0, 512)} directions={36} lineWidth={12} />
-            <Probe color={'#57c4fd'} interval={new Vector2(0, 256)} directions={12} lineWidth={12} />
+            <Probe ref={probe_0} hide color={'#242424'} interval={new Vector2(0, 512)} directions={36} lineWidth={12} />
+            <Probe ref={probe_1} hide color={'#57c4fd'} interval={new Vector2(0, 256)} directions={12} lineWidth={12} />
         </Layout>
         <Layout direction={'column'} padding={64} width={'60%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
             <Txt fill={'#747474'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'} rotation={-8}>↑ Visual of a probe</Txt>
@@ -35,6 +37,9 @@ export default makeScene2D(function* (view) {
     );
 
     yield* slideTransition(Direction.Bottom, 2.0);
+
+    yield probe_0().animate_in(1.0);
+    yield* probe_1().animate_in(1.0);
 
     yield* beginSlide('Basic Radiance Slide [0]');
 

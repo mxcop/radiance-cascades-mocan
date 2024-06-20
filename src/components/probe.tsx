@@ -5,6 +5,7 @@ const PI: number = 3.1415926535897932384626433832795;
 const TAU: number = (PI * 2.0);
 
 export interface ProbeProps extends RectProps {
+    hide?: SignalValue<boolean>;
     showDot?: SignalValue<boolean>;
     color?: SignalValue<PossibleColor>;
     lineWidth?: SignalValue<number>;
@@ -26,11 +27,22 @@ export class Probe extends Rect {
     public declare readonly interval: SimpleSignal<Vector2, this>;
     @signal()
     public declare readonly directions: SimpleSignal<number, this>;
+    @initial(false)
+    @signal()
+    public declare readonly hide: SimpleSignal<boolean, this>;
 
     public constructor(props?: ProbeProps) {
         super({ ...props, width: '100%', height: '100%' });
 
         this.set_directions(this.directions());
+
+        if (this.hide()) {
+            const nodes = this.getChildren() as Line[];
+            for (let i = 0; i < nodes.length; i++) {
+                nodes[i].end(0);
+                nodes[i].opacity(0);
+            }
+        }
     }
 
     public *animate_in(duration: number) {
@@ -38,6 +50,7 @@ export class Probe extends Rect {
 
         for (let i = 0; i < nodes.length; i++) {
             yield nodes[i].end(1, duration);
+            yield nodes[i].opacity(1, 0.5);
         }
         yield* waitFor(duration);
     }
@@ -48,7 +61,11 @@ export class Probe extends Rect {
         for (let i = 0; i < nodes.length; i++) {
             yield nodes[i].end(0, duration);
         }
-        yield* waitFor(duration);
+        yield* waitFor(duration - 0.5);
+        for (let i = 0; i < nodes.length; i++) {
+            yield nodes[i].opacity(0, 0.5);
+        }
+        yield* waitFor(0.5);
     }
 
     public set_directions(directions: number) {

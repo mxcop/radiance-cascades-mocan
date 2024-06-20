@@ -57,7 +57,7 @@ export default makeScene2D(function* (view) {
                 <Layout direction={'column'} width={512} height={'100%'} gap={16} justifyContent={'center'} layout>
                     <Txt fill={'#747474'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700} fontStyle={'italic'}>Problems</Txt>
                     <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>→ Complex light shapes</Txt>
-                    <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>→ Textured light sources</Txt>
+                    {/* <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>→ Textured light sources</Txt> */}
                     <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>→ More lights = more cost</Txt>
                 </Layout>
             </Layout>

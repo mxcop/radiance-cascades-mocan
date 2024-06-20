@@ -15,7 +15,7 @@ export default makeScene2D(function* (view) {
     yield layers.setup();
     yield view.add(
         <>
-            <SlideTitle title={"The \"Solution\""} chapter="(2D) Global Illumination" />
+            <SlideTitle title={"The Naive Solution"} chapter="(2D) Global Illumination" />
             <Layout direction={'column'} padding={48} width={'100%'} height={'100%'} alignItems={'start'} justifyContent={'end'} layout>
                 <Txt fill={'#646464'} stroke={'#141414'} lineJoin={'round'} lineWidth={32} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={28} fontStyle={'italic'} fontWeight={800}>Let's probe!</Txt>
             </Layout>
@@ -71,21 +71,25 @@ export default makeScene2D(function* (view) {
                     <Txt fill={'#ee5352'} fontFamily={'IBM Plex Mono'} fontSize={28} fontWeight={700}>→ Very high base cost!!</Txt>
                 </Layout>
             </Layout>
-            <Rect ref={proof} opacity={0} width={640} height={640} radius={16} clip={true}>
-                {/* Shader */}
-                <Three
-                    width={640}
-                    height={640}
-                    resw={64}
-                    resh={64}
-                    camera={layers.camera}
-                    scene={layers.threeScene}
-                    layout={false}
-                />
-            </Rect>
+            <Layout ref={proof} opacity={0}>
+                <Rect width={640} height={640} radius={16} clip={true}>
+                    {/* Shader */}
+                    <Three
+                        width={640}
+                        height={640}
+                        resw={64}
+                        resh={64}
+                        camera={layers.camera}
+                        scene={layers.threeScene}
+                        layout={false}
+                    />
+                </Rect>
+                <Txt y={320+64} fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={36} fontWeight={700} text={() => `Rays: ${layers.dirCount().toFixed(0)}`}></Txt>
+            </Layout>
         </>
     );
 
+    yield* layers.dirCount(8, 0);
     yield* layers.dirCount(4, 0);
     yield* slideTransition(Direction.Bottom, 2.0);
 
@@ -99,7 +103,7 @@ export default makeScene2D(function* (view) {
 
     yield* beginSlide('Proof 4 rays');
 
-    yield* layers.dirCount(128, 4);
+    yield* layers.dirCount(128, 8);
 
     yield* beginSlide('Proof 128 rays');
 });

@@ -18,10 +18,10 @@ export default makeScene2D(function* (view) {
 
     yield view.add(
         <>
-            <Probe ref={probeBg} color="#343434" interval={new Vector2(0, 512)} directions={16} />
-            <Probe ref={probe} color="#57c4fd" interval={new Vector2(0, 256)} directions={16} />
+            <Probe ref={probeBg} hide color="#343434" interval={new Vector2(0, 512)} directions={16} />
+            <Probe ref={probe} hide color="#57c4fd" interval={new Vector2(0, 256)} directions={16} />
             <Circle ref={lightSource} x={() => -spacing() * 2.0} size={64} fill="#ffc66c" clip>
-                <Probe ref={probeInner} x={() => spacing() * 2.0} color="#ee5352" interval={new Vector2(0, 512)} directions={16} />
+                <Probe ref={probeInner} hide x={() => spacing() * 2.0} color="#ee5352" interval={new Vector2(0, 512)} directions={16} />
                 <Img width={48} height={48} src={light} />
             </Circle>
             <Txt ref={marker} opacity={0} x={() => -spacing() * 2.0 - 48} fill={'#ee5352'} fontFamily={'JetBrains Mono'} fontSize={48} fontWeight={800}>!</Txt>
@@ -38,6 +38,10 @@ export default makeScene2D(function* (view) {
     );
 
     yield* slideTransition(Direction.Bottom, 2.0);
+
+    yield probe().animate_in(1.0);
+    yield probeBg().animate_in(1.0);
+    yield* probeInner().animate_in(1.0);
 
     yield* beginSlide('Angular Slide');
 
