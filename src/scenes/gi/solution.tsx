@@ -1,7 +1,7 @@
 import { Circle, Code, Img, Layout, Line, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
 import { Direction, all, beginSlide, createRef, createSignal, makeRefs, slideTransition } from '@motion-canvas/core';
 import { SlideTitle } from '../../components/title';
-import light from '../../icons/light-white.svg';
+import light from '../../icons/light-yellow.svg';
 import * as layers from '../../three/lights';
 import { Three } from '../../components/three';
 
@@ -24,7 +24,14 @@ export default makeScene2D(function* (view) {
                     <Txt marginTop={64} fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={42} fontWeight={600} fontStyle={'italic'}>Light Probes</Txt>
                     <Line layout={false}
                         lineWidth={10}
-                        stroke="#e4e4e4"
+                        stroke="#57c4fd"
+                        lineCap={'round'}
+                        lineJoin={'round'}
+                        points={[[286, -39], [-100, -43]]}
+                    />
+                    <Line layout={false}
+                        lineWidth={10}
+                        stroke="#ffc66c"
                         lineCap={'round'}
                         lineJoin={'round'}
                         points={[[-286, -100], [-185, -69], [-132, -102], [-78, 1], [-99, 69], [-177, 77], [-212, 130], [-273, 40], [-334, -1], [-286, -100]]}
@@ -35,24 +42,17 @@ export default makeScene2D(function* (view) {
                     </Circle>
                     <Line layout={false}
                         lineWidth={10}
-                        stroke="#57c4fd"
+                        stroke="#545454"
                         lineCap={'round'}
                         lineJoin={'round'}
-                        points={[[286, -39], [-103, -43]]}
+                        points={[[286, -39], [64, 111]]}
                     />
                     <Line layout={false}
                         lineWidth={10}
                         stroke="#545454"
                         lineCap={'round'}
                         lineJoin={'round'}
-                        points={[[286, -39], [64, 51]]}
-                    />
-                    <Line layout={false}
-                        lineWidth={10}
-                        stroke="#545454"
-                        lineCap={'round'}
-                        lineJoin={'round'}
-                        points={[[286, -39], [163, -184]]}
+                        points={[[286, -39], [113, -184]]}
                     />
                     <Rect x={0+48} y={64} size={[32, 128]} radius={6} lineWidth={8} stroke="#e4e4e4" layout={false} />
                     <Rect x={256+48} size={[32, 256]} radius={6} lineWidth={8} stroke="#e4e4e4" layout={false} />

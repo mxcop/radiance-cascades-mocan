@@ -29,7 +29,7 @@ export default makeScene2D(function* (view) {
             <Layout ref={aprox_txt} direction={'column'} width={750} height={'100%'} gap={16} layout>
                 <Txt fill={'#747474'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700} fontStyle={'italic'}>Let's calculate:</Txt>
                 <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700}>Resolution : 1080p</Txt>
-                <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700}>Rays per probe : 256</Txt>
+                <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700}>Rays per probe : 128</Txt>
                 <Txt fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700}>Probes per pixel : 1</Txt>
             </Layout>
         </Layout>
@@ -53,14 +53,14 @@ export default makeScene2D(function* (view) {
 
     yield* fadeIn(aprox_txt,
         <Txt opacity={0} fill={'#e4e4e4'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700}>
-            <Txt fill={'#57c4fd'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700}>2.073.600</Txt> * 256 = ...
+            <Txt fill={'#57c4fd'} fontFamily={'IBM Plex Mono'} fontSize={32} fontWeight={700}>2.073.600</Txt> * 128 = ...
         </Txt>
     );
 
     yield* beginSlide('Basic Radiance Slide [2]');
 
     yield* fadeIn(aprox_txt,
-        <Txt opacity={0} marginTop={128} fill={'#ee5352'} fontFamily={'IBM Plex Mono'} fontSize={48} fontWeight={700} alignSelf={'center'}>530.841.600 rays!</Txt>
+        <Txt opacity={0} marginTop={128} fill={'#ee5352'} fontFamily={'IBM Plex Mono'} fontSize={48} fontWeight={700} alignSelf={'center'}>265.420.800 rays!</Txt>
     );
 
     yield* beginSlide('Basic Radiance Slide [3]');

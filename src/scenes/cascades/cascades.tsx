@@ -20,6 +20,8 @@ export default makeScene2D(function* (view) {
     view.add(
         <>
         <SlideTitle title={"This.. is a Cascade Hierarchy!"} chapter="Exploiting Observations" />
+        <Txt y={400} text={'(naive) 265.420.800 -> 4.017.600 (5c)'} fill={'#e4e4e4'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={36} fontWeight={800} />
+        <Txt y={464} text={'98.48% less rays!'} fill={'#85e04c'} stroke={'#141414'} lineJoin={'round'} lineWidth={16} strokeFirst={true} fontFamily={'JetBrains Mono'} fontSize={42} fontWeight={800} />
         </>
     );
 
